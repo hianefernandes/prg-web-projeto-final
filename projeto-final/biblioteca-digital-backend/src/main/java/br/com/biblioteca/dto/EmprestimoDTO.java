@@ -1,9 +1,14 @@
+// Define o pacote do DTO de Empréstimo
 package br.com.biblioteca.dto;
 
+// Importa anotação para validação de campos obrigatórios
 import jakarta.validation.constraints.NotNull;
+// Importa Lombok para gerar getters automaticamente
 import lombok.Getter;
+// Importa Lombok para gerar setters automaticamente
 import lombok.Setter;
 
+// Importa a classe LocalDate para trabalhar com datas
 import java.time.LocalDate;
 
 /**
@@ -13,8 +18,10 @@ import java.time.LocalDate;
  * Ele evita expor diretamente a entidade Emprestimo
  * e permite validações de entrada.
  */
-@Getter
-@Setter
+@Getter // Gera os métodos getters
+@Setter // Gera os métodos setters
+
+// DTO responsável por transportar dados do empréstimo
 public class EmprestimoDTO {
 
     // Identificador do empréstimo

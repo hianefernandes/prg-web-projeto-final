@@ -13,14 +13,17 @@ import java.util.List;
 
 /**
  * Controller responsável por expor os endpoints
- * relacionados ao empréstimo.
+ * relacionados ao empréstimo de livros.
+ * 
+ * Aqui ficam apenas as chamadas HTTP,
+ * enquanto as regras de negócio ficam no Service.
  */
 @RestController
 @RequestMapping("/emprestimos")
 @CrossOrigin
 public class EmprestimoController {
 
-    // Serviço responsável pelas regras de negócio
+    // Camada de serviço responsável pelas regras de negócio
     private final EmprestimoService service;
 
     // Injeção de dependência via construtor
@@ -39,11 +42,12 @@ public class EmprestimoController {
     }
 
     /**
-     * Endpoint para salvar um novo empréstimo
-     * utilizando DTO e validações.
-     *
-     * @param dto dados do empréstimo vindos do frontend
-     * @return empréstimo salvo ou mensagem de erro
+     * Salva um novo empréstimo utilizando DTO e validações.
+     * 
+     * @Valid ativa as validações definidas no DTO.
+     * 
+     * Caso alguma regra de negócio seja violada,
+     * retorna uma mensagem de erro.
      */
     @PostMapping
     public ResponseEntity<?> salvar(@Valid @RequestBody EmprestimoDTO dto) {
@@ -59,9 +63,11 @@ public class EmprestimoController {
     }
 
     /**
-     * Endpoint para deletar um empréstimo pelo ID
-     *
-     * @param id identificador do empréstimo
+     * Deleta um empréstimo pelo ID.
+     * 
+     * Caso o empréstimo não possa ser removido
+     * devido a alguma regra de negócio,
+     * uma mensagem de erro será retornada.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
