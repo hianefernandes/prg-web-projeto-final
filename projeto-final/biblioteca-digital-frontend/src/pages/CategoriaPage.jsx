@@ -1,10 +1,14 @@
+// Importa o hook useEffect para executar ações ao carregar a página
 import { useEffect, useState } from 'react';
+// Importa a instância do axios configurada
 import api from '../services/api';
 
 export default function CategoriaPage() {
+  // Estado para categorias
   const [categorias, setCategorias] = useState([]);
   const [nome, setNome] = useState('');
 
+  // Busca categorias do backend
   useEffect(() => {
     api.get('/categorias').then(r => setCategorias(r.data));
   }, []);

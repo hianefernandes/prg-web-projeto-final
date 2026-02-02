@@ -1,10 +1,12 @@
 // Página responsável pelo CRUD de Livros
 
+// Importa o hook useEffect para executar ações ao carregar a página
 import { useEffect, useState } from 'react';
+// Importa a instância do axios configurada
 import api from '../services/api';
 
 export default function LivroPage() {
-  // Estados
+  // Estado para livros
   const [livros, setLivros] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [autorId, setAutorId] = useState('');
@@ -12,6 +14,7 @@ export default function LivroPage() {
   const [autores, setAutores] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
+  // Busca livros ao carregar a tela
   // Carrega livros, autores e categorias ao abrir a página
   useEffect(() => {
     api.get('/livros').then(r => setLivros(r.data));

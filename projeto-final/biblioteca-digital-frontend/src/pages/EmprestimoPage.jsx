@@ -1,15 +1,19 @@
 // Página responsável pelo controle de empréstimos
 
+// Importa o hook useEffect para executar ações ao carregar a página
 import { useEffect, useState } from 'react';
+// Importa a instância do axios configurada
 import api from '../services/api';
 
 export default function EmprestimoPage() {
+  // Estado para empréstimos
   const [usuarios, setUsuarios] = useState([]);
   const [exemplares, setExemplares] = useState([]);
   const [emprestimos, setEmprestimos] = useState([]);
   const [usuarioId, setUsuarioId] = useState('');
   const [exemplarId, setExemplarId] = useState('');
 
+  // Busca empréstimos do backend
   useEffect(() => {
     api.get('/usuarios').then(r => setUsuarios(r.data));
     api.get('/exemplares').then(r => setExemplares(r.data));

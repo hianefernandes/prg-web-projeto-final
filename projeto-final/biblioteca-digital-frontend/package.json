@@ -1,15 +1,24 @@
 {
   "name": "biblioteca-digital-frontend",
+  // Nome do projeto frontend
   "private": true,
+  // Impede que o projeto seja publicado no npm
   "version": "1.0.0",
+  // Versão atual do projeto
   "scripts": {
     "dev": "vite",
+    // Comando para rodar o projeto em modo desenvolvimento
     "build": "vite build"
+    // Comando para gerar a versão final de produção
   },
   "dependencies": {
     "react": "^18.2.0",
+    // Biblioteca principal para criação da interface
     "react-dom": "^18.2.0",
+    // Responsável por renderizar o React no DOM
     "axios": "^1.6.0",
+    // Biblioteca para fazer requisições HTTP (API)
     "react-router-dom": "^6.22.0"
+    // Biblioteca para controle de rotas e navegação
   }
 }

@@ -1,9 +1,12 @@
 // Componente responsável pelo menu lateral
 // Ele aparece em todas as páginas
 
+// Importa o componente Link para navegação sem recarregar a página
 import { Link } from 'react-router-dom';
 
+// Função que define o menu lateral
 export default function Sidebar() {
+  // Retorna o JSX do menu
   return (
     <aside className="sidebar">
       <h2>Biblioteca</h2>

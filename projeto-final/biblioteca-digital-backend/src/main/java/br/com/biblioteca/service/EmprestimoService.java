@@ -1,60 +1,57 @@
+// Define o pacote da camada Service
 package br.com.biblioteca.service;
 
+// Importa a entidade Emprestimo
 import br.com.biblioteca.entity.Emprestimo;
+// Importa exceção personalizada de regra de negócio
 import br.com.biblioteca.exception.NegocioException;
+// Importa o repositório de Emprestimo
 import br.com.biblioteca.repository.EmprestimoRepository;
+// Importa a anotação Service
 import org.springframework.stereotype.Service;
 
+// Importa List
 import java.util.List;
 
 /**
- * Classe de serviço responsável pelas regras de negócio
+ * Classe responsável pelas regras de negócio
  * relacionadas ao empréstimo.
  */
 @Service
 public class EmprestimoService {
 
-    // Repositório responsável pelo acesso ao banco de dados
+    // Repositório responsável pelo acesso ao banco
     private final EmprestimoRepository repository;
 
-    // Injeção de dependência pelo construtor
+    // Injeção de dependência via construtor
     public EmprestimoService(EmprestimoRepository repository) {
         this.repository = repository;
     }
 
-    /**
-     * Lista todos os empréstimos cadastrados
-     * @return lista de empréstimos
-     */
+    // Lista todos os empréstimos
     public List<Emprestimo> listar() {
         return repository.findAll();
     }
 
-    /**
-     * Salva um novo empréstimo aplicando validações
-     * e regras de negócio.
-     * 
-     * @param emprestimo objeto empréstimo recebido
-     * @return empréstimo salvo
-     */
+    // Salva um empréstimo aplicando VALIDAÇÕES
     public Emprestimo salvar(Emprestimo emprestimo) {
 
-        // Validação: empréstimo não pode ser nulo
+        // Validação: Verifica se o empréstimo é nulo
         if (emprestimo == null) {
             throw new NegocioException("Empréstimo não pode ser nulo.");
         }
 
-        // Regra de negócio: empréstimo precisa ter usuário
+        // Verifica se existe usuário associado
         if (emprestimo.getUsuario() == null) {
             throw new NegocioException("Empréstimo deve possuir um usuário.");
         }
 
-        // Regra de negócio: empréstimo precisa ter exemplar
+        // Verifica se existe exemplar associado
         if (emprestimo.getExemplar() == null) {
             throw new NegocioException("Empréstimo deve possuir um exemplar.");
         }
 
-        // Regra de negócio: data do empréstimo é obrigatória
+        // Verifica se a data do empréstimo foi informada
         if (emprestimo.getDataEmprestimo() == null) {
             throw new NegocioException("Data do empréstimo é obrigatória.");
         }
@@ -63,14 +60,10 @@ public class EmprestimoService {
         return repository.save(emprestimo);
     }
 
-    /**
-     * Remove um empréstimo pelo ID
-     * 
-     * @param id identificador do empréstimo
-     */
+    // Remove um empréstimo pelo ID
     public void deletar(Long id) {
 
-        // Validação: ID não pode ser nulo
+        // Validação: verifica se o id é nulo, pois não pode ser nulo
         if (id == null) {
             throw new NegocioException("ID do empréstimo não pode ser nulo.");
         }

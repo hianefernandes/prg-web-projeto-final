@@ -1,23 +1,31 @@
-// Página responsável por avaliações de livros
+// Página responsável: avaliações de livros
 
+// Importa hooks do React
 import { useEffect, useState } from 'react';
+// Importa a API
 import api from '../services/api';
 
+// Página responsável pelas avaliações dos livros
 export default function AvaliacaoPage() {
+  // Estados principais
   const [avaliacoes, setAvaliacoes] = useState([]);
   const [nota, setNota] = useState('');
   const [comentario, setComentario] = useState('');
+
+  // Estados auxiliares
   const [usuarios, setUsuarios] = useState([]);
   const [livros, setLivros] = useState([]);
   const [usuarioId, setUsuarioId] = useState('');
   const [livroId, setLivroId] = useState('');
 
+  // Carrega avaliações, usuários e livros ao abrir a página
   useEffect(() => {
     api.get('/avaliacoes').then(r => setAvaliacoes(r.data));
     api.get('/usuarios').then(r => setUsuarios(r.data));
     api.get('/livros').then(r => setLivros(r.data));
   }, []);
 
+  // Salva uma nova avaliação
   function salvar() {
     api.post('/avaliacoes', {
       nota,
@@ -25,8 +33,10 @@ export default function AvaliacaoPage() {
       usuarioId,
       livroId
     }).then(() => {
+      // Limpa os campos
       setNota('');
       setComentario('');
+      // Atualiza a lista
       api.get('/avaliacoes').then(r => setAvaliacoes(r.data));
     });
   }

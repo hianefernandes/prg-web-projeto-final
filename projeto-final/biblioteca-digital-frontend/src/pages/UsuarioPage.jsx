@@ -1,22 +1,26 @@
 // Página responsável pelo CRUD de usuários
 
+// Importa o hook useEffect para executar ações ao carregar a página
 import { useEffect, useState } from 'react';
+// Importa a instância do axios configurada
 import api from '../services/api';
 
 export default function UsuarioPage() {
-  // Estados
+  // Estado para armazenar a lista de usuários
   const [usuarios, setUsuarios] = useState([]);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
 
-  // Carrega os usuários ao abrir a página
+  // Executa quando a página é carregada
   useEffect(() => {
     carregarUsuarios();
   }, []);
 
   // Busca usuários no backend
   function carregarUsuarios() {
+    // Faz requisição GET para o backend
     api.get('/usuarios')
+      // Salva os usuários retornados no estado
       .then(response => setUsuarios(response.data));
   }
 
