@@ -1,33 +1,60 @@
-// Arquivo responsável por mapear as rotas da aplicação
+// Importações do React Router
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-// Importa componentes de roteamento do React Router
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// Importa o menu lateral
+// Páginas públicas
+import LoginPage from '../pages/LoginPage';
+import CadastroPage from '../pages/CadastroPage';
+
+// Layout
 import Sidebar from '../components/Sidebar';
 
-// Importa as páginas da aplicação
+// Páginas do sistema
 import UsuarioPage from '../pages/UsuarioPage';
-import AutorPage from '../pages/AutorPage';
-import CategoriaPage from '../pages/CategoriaPage';
+import LivroPage from '../pages/LivroPage';
 
-// Função que define todas as rotas do sistema
+// Componente que protege as rotas
+function RotaPrivada({ children }) {
+  const logado = localStorage.getItem('usuarioLogado');
+  return logado ? children : <Navigate to="/login" />;
+}
+
+// Layout padrão do sistema (Sidebar + conteúdo)
+function LayoutSistema() {
+  return (
+    <div className="layout">
+      <Sidebar />
+
+      <main className="content">
+        <Routes>
+          <Route path="/usuarios" element={<UsuarioPage />} />
+          <Route path="/livros" element={<LivroPage />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
+// Rotas principais
 export default function AppRoutes() {
-  // Retorna a estrutura de navegação
   return (
     <BrowserRouter>
-      <div className="layout">
-        {/* Menu lateral fixo */}
-        <Sidebar />
+      <Routes>
 
-        {/* Área onde as páginas são carregadas */}
-        <main className="content">
-          <Routes>
-            <Route path="/usuarios" element={<UsuarioPage />} />
-            <Route path="/autores" element={<AutorPage />} />
-            <Route path="/categorias" element={<CategoriaPage />} />
-          </Routes>
-        </main>
-      </div>
+        {/* Rotas públicas */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/cadastro" element={<CadastroPage />} />
+
+        {/* Rotas privadas */}
+        <Route
+          path="/*"
+          element={
+            <RotaPrivada>
+              <LayoutSistema />
+            </RotaPrivada>
+          }
+        />
+
+      </Routes>
     </BrowserRouter>
   );
 }

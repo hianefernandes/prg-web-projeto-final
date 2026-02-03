@@ -7,7 +7,9 @@ import api from '../services/api';
 
 export default function UsuarioPage() {
   // Estado para armazenar a lista de usuários
+  // Lista de usuários cadastrados
   const [usuarios, setUsuarios] = useState([]);
+  // Campos do formulário
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
 
